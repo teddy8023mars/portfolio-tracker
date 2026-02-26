@@ -12,6 +12,13 @@ Daily portfolio report script with comprehensive profit/loss analysis including 
   - Transaction fees (DBS Vickers)
   - CPF OA opportunity cost (3.5% p.a.)
   - Net profit/loss after all costs
+- **Risk Analytics** (NEW):
+  - Historical volatility (daily & annualized)
+  - Maximum drawdown analysis
+  - Value at Risk (VaR) at 95% and 99% confidence levels
+  - Sharpe ratio & Sortino ratio
+  - Correlation matrix across holdings
+  - Portfolio-level volatility with diversification benefit
 
 ## Portfolio
 
@@ -24,7 +31,11 @@ Buy date: 2025-10-28
 ## Usage
 
 ```bash
+# Daily portfolio report (includes risk analysis)
 python3 daily_portfolio_report.py
+
+# Standalone risk analysis report
+python3 risk_report.py
 ```
 
 ## Requirements
@@ -35,7 +46,7 @@ python3 daily_portfolio_report.py
 
 Install dependencies:
 ```bash
-pip3 install yfinance tabulate
+pip3 install yfinance tabulate numpy pandas
 ```
 
 ## CPF Parameters

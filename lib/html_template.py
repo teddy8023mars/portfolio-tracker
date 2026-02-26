@@ -176,7 +176,119 @@ def _build_macro_banner(macro):
     return f"""<div class="macro-banner">{macro['summary']}</div>"""
 
 
-def build_html(rows, totals, analyses, macro=None):
+def _build_risk_section(risk):
+    """Build the risk analysis HTML section."""
+    if risk is None:
+        return ""
+
+    names_map = {}
+    stock_risks = risk.get("stock_risks", {})
+    for sym, sr in stock_risks.items():
+        if sr:
+            names_map[sym] = sr.get("name", sym)
+
+    # Per-stock risk table
+    stock_rows = ""
+    for sym, sr in stock_risks.items():
+        if sr is None:
+            continue
+        name = sr.get("name", sym)
+        weight = sr.get("weight", 0)
+        annual_vol = sr.get("annual_vol")
+        mdd = sr.get("max_drawdown")
+        var95 = sr.get("var_95")
+        var99 = sr.get("var_99")
+        sharpe = sr.get("sharpe_ratio")
+        sortino = sr.get("sortino_ratio")
+
+        mdd_c = "var(--green)" if mdd and mdd > -5 else ("var(--red)" if mdd and mdd < -10 else "var(--text-muted)")
+        sharpe_c = "var(--green)" if sharpe and sharpe >= 1 else ("var(--red)" if sharpe and sharpe < 0 else "var(--text-muted)")
+
+        stock_rows += f"""
+            <tr>
+              <td>{name}<br><small style="color:var(--text-muted)">{sym}</small></td>
+              <td>{weight:.1f}%</td>
+              <td>{f'{annual_vol:.2f}%' if annual_vol else '—'}</td>
+              <td style="color:{mdd_c}">{f'{mdd:.2f}%' if mdd else '—'}</td>
+              <td>{f'{var95:.4f}%' if var95 else '—'}</td>
+              <td>{f'{var99:.4f}%' if var99 else '—'}</td>
+              <td style="color:{sharpe_c}">{sharpe if sharpe is not None else '—'}</td>
+              <td>{sortino if sortino is not None else '—'}</td>
+            </tr>"""
+
+    # Correlation matrix
+    corr = risk.get("correlation")
+    corr_html = ""
+    if corr is not None:
+        corr_header = "<th></th>" + "".join(f"<th>{names_map.get(c, c)}</th>" for c in corr.columns)
+        corr_body = ""
+        for idx in corr.index:
+            cells = f"<td><strong>{names_map.get(idx, idx)}</strong></td>"
+            for col in corr.columns:
+                val = corr.loc[idx, col]
+                if idx == col:
+                    bg = "rgba(88,166,255,0.1)"
+                elif abs(val) >= 0.7:
+                    bg = "rgba(248,81,73,0.15)"
+                elif abs(val) >= 0.4:
+                    bg = "rgba(210,153,34,0.1)"
+                else:
+                    bg = "rgba(63,185,80,0.1)"
+                cells += f'<td style="background:{bg};font-family:monospace">{val:.4f}</td>'
+            corr_body += f"<tr>{cells}</tr>\n"
+        corr_html = f"""
+        <table>
+            <thead><tr>{corr_header}</tr></thead>
+            <tbody>{corr_body}</tbody>
+        </table>"""
+    else:
+        corr_html = "<p style='color:var(--text-muted)'>数据不足，无法计算相关性矩阵</p>"
+
+    # Portfolio-level metrics
+    port_vol = risk.get("portfolio_vol")
+    if port_vol:
+        port_html = f"""
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0">
+          <div class="card" style="text-align:center;padding:16px">
+            <div style="color:var(--text-muted);font-size:0.85em">组合年化波动率</div>
+            <div style="font-size:1.4em;font-weight:700;margin-top:6px">{port_vol['portfolio_annual_vol']:.2f}%</div>
+          </div>
+          <div class="card" style="text-align:center;padding:16px">
+            <div style="color:var(--text-muted);font-size:0.85em">未分散化波动率</div>
+            <div style="font-size:1.4em;font-weight:700;margin-top:6px">{port_vol['undiversified_vol']:.2f}%</div>
+          </div>
+          <div class="card" style="text-align:center;padding:16px">
+            <div style="color:var(--text-muted);font-size:0.85em">分散化收益</div>
+            <div style="font-size:1.4em;font-weight:700;margin-top:6px;color:var(--green)">{port_vol['diversification_benefit']:.2f}%</div>
+          </div>
+          <div class="card" style="text-align:center;padding:16px">
+            <div style="color:var(--text-muted);font-size:0.85em">风险等级</div>
+            <div style="font-size:1.4em;font-weight:700;margin-top:6px;color:{risk['risk_color']}">{risk['risk_level']}</div>
+          </div>
+        </div>"""
+    else:
+        port_html = "<p style='color:var(--text-muted)'>数据不足，无法计算组合风险</p>"
+
+    return f"""
+    <h2 class="section-title">风险分析</h2>
+    <h3 style="color:var(--text-muted);font-size:0.95em;margin:12px 0 8px">个股风险指标</h3>
+    <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>产品</th><th>仓位</th><th>年化波动率</th><th>最大回撤</th>
+        <th>VaR(95%)</th><th>VaR(99%)</th><th>夏普比率</th><th>索提诺比率</th>
+      </tr></thead>
+      <tbody>{stock_rows}</tbody>
+    </table>
+    </div>
+    <h3 style="color:var(--text-muted);font-size:0.95em;margin:20px 0 8px">相关性矩阵</h3>
+    <div class="table-wrap">{corr_html}</div>
+    <h3 style="color:var(--text-muted);font-size:0.95em;margin:20px 0 8px">组合整体风险</h3>
+    {port_html}
+    """
+
+
+def build_html(rows, totals, analyses, macro=None, risk=None):
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     advice = _advice_summary(rows)
     dividends = config.get("dividends_received", {})
@@ -419,6 +531,8 @@ def build_html(rows, totals, analyses, macro=None):
 
 <h2 class="section-title">交易建议</h2>
 <div class="card">{advice_items}</div>
+
+{_build_risk_section(risk) if risk else ''}
 
 <h2 class="section-title">说明</h2>
 <div class="note">

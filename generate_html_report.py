@@ -22,6 +22,7 @@ from lib.fundamentals import fetch_fundamentals
 from lib.macro import fetch_macro
 from lib.news import fetch_news
 from lib.html_template import build_html, build_markdown
+from lib.risk import analyze_portfolio_risk
 from lib.push import push_github, push_wechat
 
 OUTPUT_DIR = Path(__file__).parent / "output"
@@ -122,8 +123,13 @@ def main():
         "annualized_pct": t_pnl_pct * (365 / common_days) if common_days > 0 else 0,
     }
 
+    # Risk analysis
+    print("  📊 正在进行风险分析 ...", file=sys.stderr)
+    risk_result = analyze_portfolio_risk(portfolio, period="120d")
+    print(f"  📊 组合风险等级: {risk_result['risk_level']}", file=sys.stderr)
+
     # 1) HTML report
-    html = build_html(rows, totals, analyses, macro=macro)
+    html = build_html(rows, totals, analyses, macro=macro, risk=risk_result)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     html_path = OUTPUT_DIR / "report.html"
     html_path.write_text(html, encoding="utf-8")
