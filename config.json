@@ -1,0 +1,31 @@
+{
+  "portfolio": [
+    {"symbol": "D05.SI",  "name": "DBS",        "cost": 54.59, "shares": 100,  "buy_date": "2025-10-28"},
+    {"symbol": "C38U.SI", "name": "CapitaLand", "cost": 2.45,  "shares": 1900, "buy_date": "2025-10-28"},
+    {"symbol": "ES3.SI",  "name": "STI ETF",    "cost": 4.63,  "shares": 1238, "buy_date": "2025-10-28"}
+  ],
+  "cpf_oa_rate": 0.035,
+  "target_return": 0.10,
+  "dividends_received": {"DBS": 75.0},
+  "fees": {
+    "commission_rate": 0.0018,
+    "min_commission": 27.25,
+    "clearing_fee_rate": 0.000325,
+    "trading_fee_rate": 0.000075,
+    "settlement_fee": 0.35
+  },
+  "scoring_weights": {
+    "rsi_strong":    5,
+    "rsi_weak":     -5,
+    "macd_golden":  15,
+    "macd_death":  -15,
+    "ma_bull":      15,
+    "ma_bear":     -15,
+    "bb_upper":     -5,
+    "bb_lower":      5,
+    "volume_up":    10,
+    "price_momentum": 5
+  },
+  "sendkey": "SCT315967T2bf8axJU3yL5TQK8FXM0eKAv",
+  "github_pages_url": "https://teddy8023mars.github.io/portfolio-tracker/output/report.html"
+}
