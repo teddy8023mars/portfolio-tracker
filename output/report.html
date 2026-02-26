@@ -1,148 +1,94 @@
 <!DOCTYPE html>
-  <html lang="zh-CN">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>CPF 投资组合报告 — 2026-02-27 01:39:58</title>
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --border: #334155;
-      --text: #e2e8f0;
-      --text-muted: #94a3b8;
-      --accent: #3b82f6;
-      --green: #22c55e;
-      --red: #ef4444;
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html { font-size:16px; -webkit-text-size-adjust:100%; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: var(--bg); color: var(--text);
-      padding: 16px; line-height: 1.6;
-      max-width: 960px; margin: 0 auto;
-    }
-
-    h1 { text-align:center; font-size:1.35rem; margin-bottom:4px; }
-    .subtitle { text-align:center; color:var(--text-muted); font-size:0.85rem; margin-bottom:20px; }
-    .section-title {
-      font-size:1.05rem; margin:28px 0 14px;
-      border-left:4px solid var(--accent); padding-left:10px;
-    }
-
-    .totals {
-      display:grid; grid-template-columns: repeat(2, 1fr);
-      gap:10px; margin-bottom:16px;
-    }
-    .total-card {
-      background:var(--card-bg); border-radius:10px;
-      padding:14px 12px; text-align:center;
-    }
-    .total-card .label { color:var(--text-muted); font-size:0.75rem; margin-bottom:4px; }
-    .total-card .value { font-size:1.15rem; font-weight:700; word-break:break-all; }
-
-    .advice-banner {
-      background: var(--card-bg); border-radius:10px;
-      padding:14px 16px; margin-bottom:20px;
-      border-left:4px solid var(--accent);
-      font-size:0.95rem; font-weight:600;
-    }
-
-    .card {
-      background:var(--card-bg); border-radius:10px;
-      padding:16px; margin-bottom:12px;
-    }
-    .card h3 { margin-bottom:10px; font-size:0.95rem; color:#60a5fa; }
-
-    .quote-grid, .stock-card-grid {
-      display:grid; grid-template-columns: repeat(2, 1fr); gap:8px;
-    }
-    .metric { display:flex; flex-direction:column; }
-    .metric-label { font-size:0.72rem; color:var(--text-muted); }
-    .metric-value { font-size:0.9rem; font-weight:600; }
-
-    .stock-card {
-      background:var(--card-bg); border-radius:10px;
-      padding:14px; margin-bottom:10px;
-    }
-    .stock-card-header {
-      display:flex; justify-content:space-between; align-items:center;
-      margin-bottom:10px; flex-wrap:wrap; gap:6px;
-    }
-    .stock-name { font-size:1rem; font-weight:700; color:#60a5fa; }
-    .stock-suggestion { font-size:0.75rem; color:var(--text-muted); }
-
-    .desktop-table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
-    .desktop-table table {
-      width:100%; border-collapse:collapse; font-size:0.82rem;
-    }
-    .desktop-table th, .desktop-table td {
-      padding:10px 12px; text-align:left;
-      border-bottom:1px solid var(--border); white-space:nowrap;
-    }
-    .desktop-table th { background:var(--card-bg); color:var(--text-muted); font-weight:600; }
-    .desktop-table tr:hover { background:rgba(30,41,59,0.5); }
-
-    .kv-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
-    .kv-table td { padding:7px 4px; border-bottom:1px solid var(--border); }
-    .kv-table td:first-child { color:var(--text-muted); width:55%; }
-    .kv-table td:last-child { text-align:right; font-weight:500; }
-    .row-highlight td { font-weight:700 !important; border-top:2px solid var(--border); padding-top:10px; }
-
-    .advice-item {
-      display:flex; gap:10px; align-items:flex-start;
-      padding:12px 0; border-bottom:1px solid var(--border);
-    }
-    .advice-item:last-child { border-bottom:none; }
-    .advice-icon { font-size:1.2rem; flex-shrink:0; margin-top:2px; }
-    .advice-stock { font-weight:700; color:#60a5fa; font-size:0.9rem; }
-    .advice-action { font-size:0.82rem; color:var(--text-muted); margin-top:2px; }
-
-    .note {
-      background:var(--card-bg); border-radius:10px;
-      padding:16px; font-size:0.78rem; color:var(--text-muted); line-height:1.8;
-    }
-    .note strong { color:var(--text); }
-
-    .mobile-cards { display:block; }
-
-    @media (min-width: 768px) {
-      body { padding:32px; }
-      h1 { font-size:1.6rem; }
-      .totals { grid-template-columns: repeat(4, 1fr); }
-      .total-card .value { font-size:1.3rem; }
-      .quote-grid { grid-template-columns: repeat(3, 1fr); }
-      .stock-card-grid { grid-template-columns: repeat(3, 1fr); }
-    .mobile-cards { display:none; }
-      .kv-table { font-size:0.88rem; }
-      .kv-table td:first-child { width:50%; }
-    }
-
-    @media (max-width: 374px) {
-      body { padding:10px; font-size:14px; }
-      .total-card .value { font-size:1rem; }
-      .stock-card-grid { grid-template-columns: 1fr 1fr; }
-      .quote-grid { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
-  </head>
-  <body>
-
-  <h1>📊 CPF 投资组合每日报告</h1>
-  <p class="subtitle">2026-02-27 01:39:58 (SGT)</p>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CPF 投资组合报告 — 2026-02-27 01:54:04</title>
+<style>
+  :root {
+    --bg: #0f172a; --card-bg: #1e293b; --border: #334155;
+    --text: #e2e8f0; --text-muted: #94a3b8; --accent: #3b82f6;
+    --green: #22c55e; --red: #ef4444;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{font-size:16px;-webkit-text-size-adjust:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    background:var(--bg);color:var(--text);padding:16px;line-height:1.6;max-width:960px;margin:0 auto;
+  }
+  h1{text-align:center;font-size:1.35rem;margin-bottom:4px}
+  .subtitle{text-align:center;color:var(--text-muted);font-size:0.85rem;margin-bottom:20px}
+  .section-title{font-size:1.05rem;margin:28px 0 14px;border-left:4px solid var(--accent);padding-left:10px}
+  .totals{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+  .total-card{background:var(--card-bg);border-radius:10px;padding:14px 12px;text-align:center}
+  .total-card .label{color:var(--text-muted);font-size:0.75rem;margin-bottom:4px}
+  .total-card .value{font-size:1.15rem;font-weight:700;word-break:break-all}
+  .advice-banner{background:var(--card-bg);border-radius:10px;padding:14px 16px;margin-bottom:20px;border-left:4px solid var(--accent);font-size:0.95rem;font-weight:600}
+  .card{background:var(--card-bg);border-radius:10px;padding:16px;margin-bottom:12px}
+  .card h3{margin-bottom:10px;font-size:0.95rem;color:#60a5fa}
+  .detail-subtitle{font-size:0.85rem;color:var(--text-muted);margin:18px 0 8px;padding-top:12px;border-top:1px solid var(--border)}
+  .quote-grid,.stock-card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .metric{display:flex;flex-direction:column}.metric-label{font-size:0.72rem;color:var(--text-muted)}.metric-value{font-size:0.9rem;font-weight:600}
+  .stock-card{background:var(--card-bg);border-radius:10px;padding:14px;margin-bottom:10px}
+  .stock-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+  .stock-name{font-size:1rem;font-weight:700;color:#60a5fa}.stock-suggestion{font-size:0.75rem;color:var(--text-muted)}
+  .desktop-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .desktop-table table{width:100%;border-collapse:collapse;font-size:0.82rem}
+  .desktop-table th,.desktop-table td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+  .desktop-table th{background:var(--card-bg);color:var(--text-muted);font-weight:600}
+  .desktop-table tr:hover{background:rgba(30,41,59,0.5)}
+  .kv-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+  .kv-table td{padding:7px 4px;border-bottom:1px solid var(--border)}
+  .kv-table td:first-child{color:var(--text-muted);width:55%}.kv-table td:last-child{text-align:right;font-weight:500}
+  .row-highlight td{font-weight:700!important;border-top:2px solid var(--border);padding-top:10px}
+  .advice-item{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border)}
+  .advice-item:last-child{border-bottom:none}.advice-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+  .advice-stock{font-weight:700;color:#60a5fa;font-size:0.9rem}.advice-action{font-size:0.82rem;color:var(--text-muted);margin-top:2px}
+  .note{background:var(--card-bg);border-radius:10px;padding:16px;font-size:0.78rem;color:var(--text-muted);line-height:1.8}
+  .note strong{color:var(--text)}
+  .mobile-cards{display:block}
+  .tech-header{display:flex;justify-content:space-between;align-items:center;margin:18px 0 8px;padding-top:12px;border-top:1px solid var(--border)}
+  .tech-title{font-size:0.85rem;color:var(--text-muted);font-weight:600}
+  .tech-score{width:48px;height:48px;border:2px solid;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .score-num{font-size:18px;font-weight:800;line-height:1}.score-label{font-size:9px;color:var(--text-muted)}
+  .tech-signal{font-size:0.82rem;font-weight:600;margin-bottom:10px}
+  .tech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .tech-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px}
+  .tech-card-title{font-size:0.7rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+  .tech-card-main{font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:6px}
+  .ind-row{display:flex;justify-content:space-between;padding:2px 0;font-size:0.75rem;color:var(--text-muted)}
+  .ind-row span:last-child{color:var(--text);font-weight:500}
+  .tech-note{font-size:0.8rem;color:var(--text-muted);padding:12px 0;border-top:1px solid var(--border);margin-top:12px}
+  .rsi-bar{height:6px;border-radius:3px;display:flex;overflow:hidden;position:relative;margin:6px 0 2px}
+  .rsi-zone{height:100%}.rsi-oversold{width:30%;background:#1b5e20}.rsi-neutral{width:40%;background:#37474f}.rsi-overbought{width:30%;background:#b71c1c}
+  .rsi-pointer{position:absolute;top:-2px;width:2px;height:10px;background:#fff;border-radius:1px;transform:translateX(-50%)}
+  .rsi-labels{display:flex;justify-content:space-between;font-size:0.6rem;color:var(--text-muted)}
+  @media(min-width:768px){
+    body{padding:32px}h1{font-size:1.6rem}.totals{grid-template-columns:repeat(4,1fr)}.total-card .value{font-size:1.3rem}
+    .quote-grid{grid-template-columns:repeat(3,1fr)}.stock-card-grid{grid-template-columns:repeat(3,1fr)}
+    .mobile-cards{display:none}.kv-table{font-size:0.88rem}.kv-table td:first-child{width:50%}
+    .tech-grid{grid-template-columns:repeat(4,1fr)}
+  }
+  @media(max-width:374px){
+    body{padding:10px;font-size:14px}.total-card .value{font-size:1rem}.stock-card-grid{grid-template-columns:1fr 1fr}
+    .quote-grid{grid-template-columns:1fr 1fr}.tech-grid{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<h1>📊 CPF 投资组合每日报告</h1>
+<p class="subtitle">2026-02-27 01:54:04 (SGT)</p>
 
 <div class="desktop-table">
   <table>
-    <thead>
-      <tr><th>产品</th><th>持仓</th><th>占比</th><th>成本价</th><th>当前价</th><th>目标价</th><th>今日涨跌</th><th>账面收益</th><th>交易建议</th></tr>
-    </thead>
+    <thead><tr><th>产品</th><th>持仓</th><th>占比</th><th>成本价</th><th>当前价</th><th>目标价</th><th>今日涨跌</th><th>账面收益</th><th>评分</th><th>交易建议</th></tr></thead>
     <tbody>
             <tr>
               <td>DBS</td><td>100</td><td>34.5%</td><td>$54.59</td>
               <td>$57.1600</td><td>$55.1889</td>
               <td style="color:var(--red)">-0.5300 (-0.92%)</td>
               <td style="color:var(--green)">$257.00 (+4.71%)</td>
+              <td style="color:var(--red);font-weight:700">40</td>
               <td>✅ 可卖出 (高于目标 3.57%)</td>
             </tr>
             <tr>
@@ -150,6 +96,7 @@
               <td>$2.5000</td><td>$2.4812</td>
               <td style="color:var(--red)">-0.0400 (-1.57%)</td>
               <td style="color:var(--green)">$95.00 (+2.04%)</td>
+              <td style="color:var(--green);font-weight:700">75</td>
               <td>✅ 可卖出 (高于目标 0.76%)</td>
             </tr>
             <tr>
@@ -157,14 +104,12 @@
               <td>$4.9650</td><td>$4.6785</td>
               <td style="color:var(--red)">-0.0500 (-1.00%)</td>
               <td style="color:var(--green)">$414.73 (+7.24%)</td>
+              <td style="color:#ffa726;font-weight:700">60</td>
               <td>✅ 可卖出 (高于目标 6.12%)</td>
-            </tr>
-    </tbody>
+            </tr></tbody>
   </table>
 </div>
-
 <div class="mobile-cards">
-
         <div class="stock-card">
           <div class="stock-card-header">
             <span class="stock-name">DBS</span>
@@ -175,11 +120,10 @@
             <div class="metric"><span class="metric-label">占比</span><span class="metric-value">34.5%</span></div>
             <div class="metric"><span class="metric-label">成本价</span><span class="metric-value">$54.59</span></div>
             <div class="metric"><span class="metric-label">当前价</span><span class="metric-value">$57.1600</span></div>
-            <div class="metric"><span class="metric-label">目标价</span><span class="metric-value">$55.1889</span></div>
             <div class="metric"><span class="metric-label">今日涨跌</span><span class="metric-value" style="color:var(--red)">-0.5300 (-0.92%)</span></div>
             <div class="metric"><span class="metric-label">账面收益</span><span class="metric-value" style="color:var(--green)">$257.00 (+4.71%)</span></div>
             <div class="metric"><span class="metric-label">年化收益</span><span class="metric-value" style="color:var(--green)">+14.1%</span></div>
-            <div class="metric"><span class="metric-label">距10%目标</span><span class="metric-value" style="color:var(--text-muted)">还差 5.05%</span></div>
+            <div class="metric"><span class="metric-label">技术评分</span><span class="metric-value" style="color:var(--red)">40 偏空，注意风险</span></div>
           </div>
         </div>
         <div class="stock-card">
@@ -192,11 +136,10 @@
             <div class="metric"><span class="metric-label">占比</span><span class="metric-value">29.4%</span></div>
             <div class="metric"><span class="metric-label">成本价</span><span class="metric-value">$2.45</span></div>
             <div class="metric"><span class="metric-label">当前价</span><span class="metric-value">$2.5000</span></div>
-            <div class="metric"><span class="metric-label">目标价</span><span class="metric-value">$2.4812</span></div>
             <div class="metric"><span class="metric-label">今日涨跌</span><span class="metric-value" style="color:var(--red)">-0.0400 (-1.57%)</span></div>
             <div class="metric"><span class="metric-label">账面收益</span><span class="metric-value" style="color:var(--green)">$95.00 (+2.04%)</span></div>
             <div class="metric"><span class="metric-label">年化收益</span><span class="metric-value" style="color:var(--green)">+6.1%</span></div>
-            <div class="metric"><span class="metric-label">距10%目标</span><span class="metric-value" style="color:var(--text-muted)">还差 7.80%</span></div>
+            <div class="metric"><span class="metric-label">技术评分</span><span class="metric-value" style="color:var(--green)">75 偏多，持股待涨</span></div>
           </div>
         </div>
         <div class="stock-card">
@@ -209,38 +152,23 @@
             <div class="metric"><span class="metric-label">占比</span><span class="metric-value">36.2%</span></div>
             <div class="metric"><span class="metric-label">成本价</span><span class="metric-value">$4.63</span></div>
             <div class="metric"><span class="metric-label">当前价</span><span class="metric-value">$4.9650</span></div>
-            <div class="metric"><span class="metric-label">目标价</span><span class="metric-value">$4.6785</span></div>
             <div class="metric"><span class="metric-label">今日涨跌</span><span class="metric-value" style="color:var(--red)">-0.0500 (-1.00%)</span></div>
             <div class="metric"><span class="metric-label">账面收益</span><span class="metric-value" style="color:var(--green)">$414.73 (+7.24%)</span></div>
             <div class="metric"><span class="metric-label">年化收益</span><span class="metric-value" style="color:var(--green)">+21.6%</span></div>
-            <div class="metric"><span class="metric-label">距10%目标</span><span class="metric-value" style="color:var(--text-muted)">还差 2.58%</span></div>
+            <div class="metric"><span class="metric-label">技术评分</span><span class="metric-value" style="color:#ffa726">60 中性，观望为主</span></div>
           </div>
-        </div>
-</div>
+        </div></div>
 
 <div class="totals">
-  <div class="total-card">
-    <div class="label">投资总额</div>
-    <div class="value">$15,845.94</div>
-  </div>
-  <div class="total-card">
-    <div class="label">当前市值</div>
-    <div class="value">$16,612.67</div>
-  </div>
-  <div class="total-card">
-    <div class="label">账面收益</div>
-    <div class="value" style="color:var(--green)">$+766.73<br><small>(+4.84%)</small></div>
-  </div>
-  <div class="total-card">
-    <div class="label">真实盈亏</div>
-    <div class="value" style="color:var(--green)">$+566.91<br><small>(+3.58%)</small></div>
-  </div>
+  <div class="total-card"><div class="label">投资总额</div><div class="value">$15,845.94</div></div>
+  <div class="total-card"><div class="label">当前市值</div><div class="value">$16,612.67</div></div>
+  <div class="total-card"><div class="label">账面收益</div><div class="value" style="color:var(--green)">$+766.73<br><small>(+4.84%)</small></div></div>
+  <div class="total-card"><div class="label">真实盈亏</div><div class="value" style="color:var(--green)">$+566.91<br><small>(+3.58%)</small></div></div>
 </div>
-
 <div class="advice-banner">💡 全部标的已达目标价，可考虑部分落袋锁定利润</div>
 
-  <h2 class="section-title">个股行情详情</h2>
-  
+<h2 class="section-title">个股详情 & 技术分析</h2>
+
         <div class="card">
           <h3>DBS (D05.SI)</h3>
           <div class="quote-grid">
@@ -251,34 +179,55 @@
             <div class="metric"><span class="metric-label">今日最高</span><span class="metric-value" style="color:var(--green)">$57.8500</span></div>
             <div class="metric"><span class="metric-label">今日最低</span><span class="metric-value" style="color:var(--red)">$57.1600</span></div>
           </div>
-        </div>
-        <div class="card">
-          <h3>CapitaLand (C38U.SI)</h3>
-          <div class="quote-grid">
-            <div class="metric"><span class="metric-label">昨日开盘</span><span class="metric-value">$2.5200</span></div>
-            <div class="metric"><span class="metric-label">昨日收盘</span><span class="metric-value">$2.5400</span></div>
-            <div class="metric"><span class="metric-label">今日开盘</span><span class="metric-value">$2.5600</span></div>
-            <div class="metric"><span class="metric-label">今日收盘</span><span class="metric-value">$2.5000</span></div>
-            <div class="metric"><span class="metric-label">今日最高</span><span class="metric-value" style="color:var(--green)">$2.5700</span></div>
-            <div class="metric"><span class="metric-label">今日最低</span><span class="metric-value" style="color:var(--red)">$2.4900</span></div>
-          </div>
-        </div>
-        <div class="card">
-          <h3>STI ETF (ES3.SI)</h3>
-          <div class="quote-grid">
-            <div class="metric"><span class="metric-label">昨日开盘</span><span class="metric-value">$5.0390</span></div>
-            <div class="metric"><span class="metric-label">昨日收盘</span><span class="metric-value">$5.0150</span></div>
-            <div class="metric"><span class="metric-label">今日开盘</span><span class="metric-value">$5.0250</span></div>
-            <div class="metric"><span class="metric-label">今日收盘</span><span class="metric-value">$4.9650</span></div>
-            <div class="metric"><span class="metric-label">今日最高</span><span class="metric-value" style="color:var(--green)">$5.0410</span></div>
-            <div class="metric"><span class="metric-label">今日最低</span><span class="metric-value" style="color:var(--red)">$4.9640</span></div>
-          </div>
-        </div>
 
-  <h2 class="section-title">真实盈亏分析（如果今天卖出）</h2>
-  
-        <div class="card">
-          <h3>DBS — 如果今天卖出</h3>
+          
+      <div class="tech-header">
+        <span class="tech-title">技术分析</span>
+        <span class="tech-score" style="border-color:var(--red)">
+          <span class="score-num" style="color:var(--red)">40</span>
+          <span class="score-label">评分</span>
+        </span>
+      </div>
+      <div class="tech-signal" style="color:var(--red)">偏空，注意风险</div>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-card-title">均线</div>
+          <div class="tech-card-main">均线交织（震荡）</div>
+          <div class="ind-row"><span>MA5</span><span>$57.7700</span></div>
+          <div class="ind-row"><span>MA10</span><span>$57.5700</span></div>
+          <div class="ind-row"><span>MA20</span><span>$58.3220</span></div>
+          <div class="ind-row"><span>MA20偏离</span><span style="color:var(--red)">-1.99%</span></div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-card-title">MACD</div>
+          <div class="tech-card-main" style="color:var(--text-muted)">空头运行</div>
+          <div class="ind-row"><span>DIF</span><span>-0.1080</span></div>
+          <div class="ind-row"><span>DEA</span><span>0.0510</span></div>
+          <div class="ind-row"><span>柱状</span><span style="color:var(--red)">-0.1590</span></div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-card-title">RSI</div>
+          <div class="tech-card-main" style="color:var(--text-muted)">RSI14: 31.6</div>
+          <div class="rsi-bar">
+            <div class="rsi-zone rsi-oversold"></div>
+            <div class="rsi-zone rsi-neutral"></div>
+            <div class="rsi-zone rsi-overbought"></div>
+            <div class="rsi-pointer" style="left:31.6%"></div>
+          </div>
+          <div class="rsi-labels"><span>超卖30</span><span>中性</span><span>超买70</span></div>
+          <div class="ind-row"><span>RSI6</span><span>56.0</span></div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-card-title">布林带</div>
+          <div class="tech-card-main">位置: 18.8%</div>
+          <div class="ind-row"><span>上轨</span><span>$60.1865</span></div>
+          <div class="ind-row"><span>中轨</span><span>$58.3220</span></div>
+          <div class="ind-row"><span>下轨</span><span>$56.4575</span></div>
+          <div class="ind-row"><span>量比</span><span>1.22</span></div>
+        </div>
+      </div>
+
+          <h4 class="detail-subtitle">盈亏分析（如果今天卖出）</h4>
           <table class="kv-table">
             <tr><td>投资金额</td><td>$5,459.00</td></tr>
             <tr><td>买入费用</td><td>$29.78</td></tr>
@@ -291,11 +240,67 @@
             <tr class="row-highlight"><td>真实盈亏</td><td style="color:var(--green)">$+238.25 (+4.36%)</td></tr>
             <tr><td>年化收益率</td><td style="color:var(--green)">+14.1%</td></tr>
             <tr><td>距 10% 目标收益</td><td style="color:var(--red)">还差 5.05%</td></tr>
-            <tr><td>若留在 CPF OA 可赚</td><td>$63.86 (3.5% p.a.)</td></tr>
           </table>
         </div>
         <div class="card">
-          <h3>CapitaLand — 如果今天卖出</h3>
+          <h3>CapitaLand (C38U.SI)</h3>
+          <div class="quote-grid">
+            <div class="metric"><span class="metric-label">昨日开盘</span><span class="metric-value">$2.5200</span></div>
+            <div class="metric"><span class="metric-label">昨日收盘</span><span class="metric-value">$2.5400</span></div>
+            <div class="metric"><span class="metric-label">今日开盘</span><span class="metric-value">$2.5600</span></div>
+            <div class="metric"><span class="metric-label">今日收盘</span><span class="metric-value">$2.5000</span></div>
+            <div class="metric"><span class="metric-label">今日最高</span><span class="metric-value" style="color:var(--green)">$2.5700</span></div>
+            <div class="metric"><span class="metric-label">今日最低</span><span class="metric-value" style="color:var(--red)">$2.4900</span></div>
+          </div>
+
+          
+      <div class="tech-header">
+        <span class="tech-title">技术分析</span>
+        <span class="tech-score" style="border-color:var(--green)">
+          <span class="score-num" style="color:var(--green)">75</span>
+          <span class="score-label">评分</span>
+        </span>
+      </div>
+      <div class="tech-signal" style="color:var(--green)">偏多，持股待涨</div>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-card-title">均线</div>
+          <div class="tech-card-main">多头排列（强势）</div>
+          <div class="ind-row"><span>MA5</span><span>$2.4880</span></div>
+          <div class="ind-row"><span>MA10</span><span>$2.4567</span></div>
+          <div class="ind-row"><span>MA20</span><span>$2.4084</span></div>
+          <div class="ind-row"><span>MA20偏离</span><span style="color:var(--green)">+3.80%</span></div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-card-title">MACD</div>
+          <div class="tech-card-main" style="color:var(--text-muted)">多头运行</div>
+          <div class="ind-row"><span>DIF</span><span>0.0417</span></div>
+          <div class="ind-row"><span>DEA</span><span>0.0304</span></div>
+          <div class="ind-row"><span>柱状</span><span style="color:var(--green)">0.0114</span></div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-card-title">RSI</div>
+          <div class="tech-card-main" style="color:var(--red)">RSI14: 75.7</div>
+          <div class="rsi-bar">
+            <div class="rsi-zone rsi-oversold"></div>
+            <div class="rsi-zone rsi-neutral"></div>
+            <div class="rsi-zone rsi-overbought"></div>
+            <div class="rsi-pointer" style="left:75.7%"></div>
+          </div>
+          <div class="rsi-labels"><span>超卖30</span><span>中性</span><span>超买70</span></div>
+          <div class="ind-row"><span>RSI6</span><span>75.0</span></div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-card-title">布林带</div>
+          <div class="tech-card-main">位置: 84.2%</div>
+          <div class="ind-row"><span>上轨</span><span>$2.5423</span></div>
+          <div class="ind-row"><span>中轨</span><span>$2.4084</span></div>
+          <div class="ind-row"><span>下轨</span><span>$2.2746</span></div>
+          <div class="ind-row"><span>量比</span><span>0.96</span></div>
+        </div>
+      </div>
+
+          <h4 class="detail-subtitle">盈亏分析（如果今天卖出）</h4>
           <table class="kv-table">
             <tr><td>投资金额</td><td>$4,655.00</td></tr>
             <tr><td>买入费用</td><td>$29.46</td></tr>
@@ -308,11 +313,67 @@
             <tr class="row-highlight"><td>真实盈亏</td><td style="color:var(--green)">$+11.04 (+0.24%)</td></tr>
             <tr><td>年化收益率</td><td style="color:var(--green)">+6.1%</td></tr>
             <tr><td>距 10% 目标收益</td><td style="color:var(--red)">还差 7.80%</td></tr>
-            <tr><td>若留在 CPF OA 可赚</td><td>$54.46 (3.5% p.a.)</td></tr>
           </table>
         </div>
         <div class="card">
-          <h3>STI ETF — 如果今天卖出</h3>
+          <h3>STI ETF (ES3.SI)</h3>
+          <div class="quote-grid">
+            <div class="metric"><span class="metric-label">昨日开盘</span><span class="metric-value">$5.0390</span></div>
+            <div class="metric"><span class="metric-label">昨日收盘</span><span class="metric-value">$5.0150</span></div>
+            <div class="metric"><span class="metric-label">今日开盘</span><span class="metric-value">$5.0250</span></div>
+            <div class="metric"><span class="metric-label">今日收盘</span><span class="metric-value">$4.9650</span></div>
+            <div class="metric"><span class="metric-label">今日最高</span><span class="metric-value" style="color:var(--green)">$5.0410</span></div>
+            <div class="metric"><span class="metric-label">今日最低</span><span class="metric-value" style="color:var(--red)">$4.9640</span></div>
+          </div>
+
+          
+      <div class="tech-header">
+        <span class="tech-title">技术分析</span>
+        <span class="tech-score" style="border-color:#ffa726">
+          <span class="score-num" style="color:#ffa726">60</span>
+          <span class="score-label">评分</span>
+        </span>
+      </div>
+      <div class="tech-signal" style="color:var(--text-muted)">中性，观望为主</div>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-card-title">均线</div>
+          <div class="tech-card-main">多头排列（强势）</div>
+          <div class="ind-row"><span>MA5</span><span>$5.0070</span></div>
+          <div class="ind-row"><span>MA10</span><span>$4.9920</span></div>
+          <div class="ind-row"><span>MA20</span><span>$4.9635</span></div>
+          <div class="ind-row"><span>MA20偏离</span><span style="color:var(--green)">+0.03%</span></div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-card-title">MACD</div>
+          <div class="tech-card-main" style="color:var(--text-muted)">空头运行</div>
+          <div class="ind-row"><span>DIF</span><span>0.0512</span></div>
+          <div class="ind-row"><span>DEA</span><span>0.0583</span></div>
+          <div class="ind-row"><span>柱状</span><span style="color:var(--red)">-0.0070</span></div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-card-title">RSI</div>
+          <div class="tech-card-main" style="color:var(--text-muted)">RSI14: 52.0</div>
+          <div class="rsi-bar">
+            <div class="rsi-zone rsi-oversold"></div>
+            <div class="rsi-zone rsi-neutral"></div>
+            <div class="rsi-zone rsi-overbought"></div>
+            <div class="rsi-pointer" style="left:52.0%"></div>
+          </div>
+          <div class="rsi-labels"><span>超卖30</span><span>中性</span><span>超买70</span></div>
+          <div class="ind-row"><span>RSI6</span><span>55.9</span></div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-card-title">布林带</div>
+          <div class="tech-card-main">位置: 51.0%</div>
+          <div class="ind-row"><span>上轨</span><span>$5.0435</span></div>
+          <div class="ind-row"><span>中轨</span><span>$4.9635</span></div>
+          <div class="ind-row"><span>下轨</span><span>$4.8834</span></div>
+          <div class="ind-row"><span>量比</span><span>1.67</span></div>
+        </div>
+      </div>
+
+          <h4 class="detail-subtitle">盈亏分析（如果今天卖出）</h4>
           <table class="kv-table">
             <tr><td>投资金额</td><td>$5,731.94</td></tr>
             <tr><td>买入费用</td><td>$29.89</td></tr>
@@ -325,62 +386,58 @@
             <tr class="row-highlight"><td>真实盈亏</td><td style="color:var(--green)">$+317.62 (+5.54%)</td></tr>
             <tr><td>年化收益率</td><td style="color:var(--green)">+21.6%</td></tr>
             <tr><td>距 10% 目标收益</td><td style="color:var(--red)">还差 2.58%</td></tr>
-            <tr><td>若留在 CPF OA 可赚</td><td>$67.06 (3.5% p.a.)</td></tr>
           </table>
         </div>
 
-  <h2 class="section-title">总体真实盈亏</h2>
-  <div class="card">
-    <table class="kv-table">
-      <tr><td>投资总额</td><td>$15,845.94</td></tr>
-      <tr><td>当前市值</td><td>$16,612.67</td></tr>
-      <tr><td>账面收益</td><td style="color:var(--green)">$+766.73</td></tr>
-      <tr><td>卖出费用合计</td><td>-$89.45</td></tr>
-      <tr><td>CPF 机会成本合计</td><td>-$185.38</td></tr>
-      <tr><td>已收股息合计</td><td style="color:var(--green)">+$75.00</td></tr>
-      <tr class="row-highlight"><td>真实盈亏</td><td style="color:var(--green)">$+566.91 (+3.58%)</td></tr>
-      <tr><td>组合年化收益率</td><td style="color:var(--green)">+14.5%</td></tr>
-      <tr><td>若全部留在 CPF OA 可赚</td><td>$185.38 (3.5% p.a.)</td></tr>
-      <tr><td>跑赢 CPF OA</td><td style="color:var(--green)">$+752.29</td></tr>
-    </table>
-  </div>
+<h2 class="section-title">总体真实盈亏</h2>
+<div class="card">
+  <table class="kv-table">
+    <tr><td>投资总额</td><td>$15,845.94</td></tr>
+    <tr><td>当前市值</td><td>$16,612.67</td></tr>
+    <tr><td>账面收益</td><td style="color:var(--green)">$+766.73</td></tr>
+    <tr><td>卖出费用合计</td><td>-$89.45</td></tr>
+    <tr><td>CPF 机会成本合计</td><td>-$185.38</td></tr>
+    <tr><td>已收股息合计</td><td style="color:var(--green)">+$75.00</td></tr>
+    <tr class="row-highlight"><td>真实盈亏</td><td style="color:var(--green)">$+566.91 (+3.58%)</td></tr>
+    <tr><td>组合年化收益率</td><td style="color:var(--green)">+14.5%</td></tr>
+    <tr><td>若全部留在 CPF OA</td><td>$185.38 (3.5% p.a.)</td></tr>
+    <tr><td>跑赢 CPF OA</td><td style="color:var(--green)">$+752.29</td></tr>
+  </table>
+</div>
 
-  <h2 class="section-title">交易建议</h2>
-  <div class="card">
-    
+<h2 class="section-title">交易建议</h2>
+<div class="card">
           <div class="advice-item">
             <span class="advice-icon">✅</span>
             <div>
               <div class="advice-stock">DBS</div>
-              <div class="advice-action">已超目标价，收益率 +4.71%，可考虑部分落袋</div>
+              <div class="advice-action">已超目标价，收益率 +4.71%，可考虑部分落袋 | 技术评分 40 (偏空，注意风险)</div>
             </div>
           </div>
           <div class="advice-item">
             <span class="advice-icon">✅</span>
             <div>
               <div class="advice-stock">CapitaLand</div>
-              <div class="advice-action">已超目标价，收益率 +2.04%，可考虑部分落袋</div>
+              <div class="advice-action">已超目标价，收益率 +2.04%，可考虑部分落袋 | 技术评分 75 (偏多，持股待涨)</div>
             </div>
           </div>
           <div class="advice-item">
             <span class="advice-icon">✅</span>
             <div>
               <div class="advice-stock">STI ETF</div>
-              <div class="advice-action">已超目标价，收益率 +7.24%，可考虑部分落袋</div>
+              <div class="advice-action">已超目标价，收益率 +7.24%，可考虑部分落袋 | 技术评分 60 (中性，观望为主)</div>
             </div>
-          </div>
-  </div>
+          </div></div>
 
-  <h2 class="section-title">说明</h2>
-  <div class="note">
-    <strong>目标价格</strong>：卖出后不亏钱的最低价格（含所有交易费用）<br>
-    <strong>真实盈亏</strong>：账面收益 − 卖出费用 − CPF机会成本 + 已收股息<br>
-    <strong>年化收益率</strong>：将持有期收益率折算为年化，= 收益率 × (365 / 持有天数)<br>
-    <strong>10% 目标收益</strong>：take-profit 线，达到后可考虑部分落袋<br>
-    <strong>CPF 机会成本</strong>：使用 CPF OA 投资的机会成本 (3.5% p.a.)<br>
-    <strong>交易费用</strong>：DBS Vickers 佣金 0.18% 或最低 $27.25 + 清算费 + 交易费 + 结算费<br>
-    <strong>数据来源</strong>：Yahoo Finance（可能有 15 分钟延迟）
-  </div>
-
-  </body>
-  </html>
+<h2 class="section-title">说明</h2>
+<div class="note">
+  <strong>目标价格</strong>：卖出后不亏钱的最低价格（含所有交易费用）<br>
+  <strong>真实盈亏</strong>：账面收益 - 卖出费用 - CPF机会成本 + 已收股息<br>
+  <strong>技术评分</strong>：综合 RSI/MACD/均线/布林带，满分100。>70偏多 | 50-70中性 | <50偏空<br>
+  <strong>年化收益率</strong>：收益率 x (365 / 持有天数)<br>
+  <strong>CPF 机会成本</strong>：CPF OA 利率 3.5% p.a.<br>
+  <strong>交易费用</strong>：DBS Vickers 佣金 0.18% 或最低 $27.25 + 清算费 + 交易费 + 结算费<br>
+  <strong>数据来源</strong>：Yahoo Finance（可能有 15 分钟延迟）
+</div>
+</body>
+</html>
