@@ -26,7 +26,7 @@ REPORT_PATH = "/home/ubuntu/daily_stock_report.html"
 
 # GitHub Pages 配置
 REPO_DIR = "/home/ubuntu/portfolio-tracker"
-GITHUB_PAGES_URL = "https://teddy8023mars.github.io/portfolio-tracker/output/a_stock_report.html"
+GITHUB_PAGES_URL = "https://teddy8023mars.github.io/portfolio-tracker/output/a_stock_report_11.html"
 
 
 def push_to_github_pages(report_path):
@@ -41,14 +41,14 @@ def push_to_github_pages(report_path):
             )
 
         # 复制报告到仓库
-        dest = repo / "output" / "a_stock_report.html"
+        dest = repo / "output" / "a_stock_report_11.html"
         dest.parent.mkdir(parents=True, exist_ok=True)
 
         import shutil
         shutil.copy2(report_path, str(dest))
 
         # Git add, commit, push
-        subprocess.run(["git", "add", "output/a_stock_report.html"], cwd=REPO_DIR, check=True, capture_output=True)
+        subprocess.run(["git", "add", "output/a_stock_report_11.html"], cwd=REPO_DIR, check=True, capture_output=True)
 
         # 尝试 commit（如果没有变化会失败，忽略）
         commit_result = subprocess.run(
